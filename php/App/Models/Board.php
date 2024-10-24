@@ -1,7 +1,7 @@
 <?php
 
 namespace Joc4enRatlla\Models;
-
+use Joc4enRatlla\Excemptions\FichaFueraDeRango;
 class Board
 {
     public const FILES = 6;
@@ -185,6 +185,6 @@ class Board
                 return true;
             }
         }
-        return false;
+        throw new FichaFueraDeRango("Has intentado introducir una ficha en una columna llena", 1);
     }
 }

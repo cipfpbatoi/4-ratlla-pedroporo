@@ -4,7 +4,14 @@ namespace Joc4enRatlla\Controllers;
 
 use Joc4enRatlla\Models\Player;
 use Joc4enRatlla\Models\Game;
-
+use Joc4enRatlla\Excemptions;
+use Monolog\Logger;
+use Monolog\Handler\StreamHandler;
+use Monolog\Processor\IntrospectionProcessor;
+use Monolog\Handler\RotatingFileHandler;
+use Monolog\Formatter\JsonFormatter;
+use Exception;
+use Joc4enRatlla\Excemptions\FichaFueraDeRango;
 
 class GameController
 {
@@ -26,27 +33,43 @@ class GameController
 
     public function play(array $request)
     {
-        // Gestió del joc
-        if (isset($request["columna"])) {
-            $this->game->play($request["columna"]);
-        } else if (isset($request["exit"])) {
-            $this->game->reset();
-            session_destroy();
-            header("Location: ./");
-        } else if (isset($request["reset"])) {
-            $this->game->reset();
-        }
-        
-        if ($this->game->getCurrPlayer()->getIsAutomatic()) {
-            $this->game->playAutomatic();
-        }
-        $this->game->save();
+        $log = new Logger("GameLogger");
+        $rfh = new RotatingFileHandler("../logs/game.log", Logger::DEBUG);
+        $rfh->setFormatter(new JsonFormatter());
+        $log->pushHandler(new StreamHandler("../logs/game.log", Logger::DEBUG));
+        $log->pushProcessor(new IntrospectionProcessor());
+        $errors = [];
+        try {
+            // Gestió del joc
+            if (isset($request["columna"])) {
+                $this->game->play($request["columna"]);
+                $log->info('Un jugador a hecho un movimiento a la columna', $request);
+            } else if (isset($request["exit"])) {
+                $log->warning("Se ha cerrado el juego con esta tabla", $this->game->getBoard()->getSlots());
+                $this->game->reset();
+                session_destroy();
+                header("Location: ./");
+            } else if (isset($request["reset"])) {
+                $log->warning("Se ha cerrado el juego con esta tabla", $this->game->getBoard()->getSlots());
+                $this->game->reset();
+            }
 
-        $board = $this->game->getBoard();
-        $players = $this->game->getPlayers();
-        $winner = $this->game->getWinner();
-        $scores = $this->game->getScores();
+            if ($this->game->getCurrPlayer()->getIsAutomatic()) {
+                $this->game->playAutomatic();
+            }
+        } catch (FichaFueraDeRango $e) {
+            $errors[] = $e;
+        } finally {
+            $this->game->save();
+            $board = $this->game->getBoard();
+            $players = $this->game->getPlayers();
+            $winner = $this->game->getWinner();
+            $scores = $this->game->getScores();
 
-        loadView('index', compact('board', 'players', 'winner', 'scores'));
+
+            $log->pushHandler($rfh);
+
+            loadView('index', compact('board', 'players', 'winner', 'scores', 'errors'));
+        }
     }
 }

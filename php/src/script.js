@@ -22,8 +22,6 @@ var seq = 1;
 
 function changetext(element) {
   rainbow = "#" + hex[r] + hex[g] + hex[b];
-  console.log(element);
-
   element.style.backgroundColor = rainbow;
 }
 
