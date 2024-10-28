@@ -21,7 +21,7 @@
     <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
         <?php include_once $_SERVER['DOCUMENT_ROOT'] . '/../Views/partials/board.view.php'  ?>
         <input type="submit" name="reset" value="Reiniciar joc">
-        <input type="submit" name="exit" value="Acabar joc">
+        <input type="submit" name="exit" value="Acabar joc" style="--c:#E95A49">
     </form>
     <?php include_once $_SERVER['DOCUMENT_ROOT'] . '/../Views/partials/panel.view.php'  ?>
     <script src="script.js"></script>

@@ -1,7 +1,9 @@
 <?php
 
 namespace Joc4enRatlla\Models;
+
 use Joc4enRatlla\Excemptions\FichaFueraDeRango;
+
 class Board
 {
     public const FILES = 6;
@@ -61,9 +63,9 @@ class Board
         return $this->slots;
     }
     //Comprova si hi ha un guanyador
-    public function checkWin(array $coord,int $player,int $columna): bool
+    public function checkWin(array $coord, int $player, int $columna): bool
     {
-        $jugador="player$player";
+        $jugador = "player$player";
         if (self::comprobarHorizontal($coord, $jugador, $columna) || self::comprobarVertical($coord, $jugador, $columna) || self::comprobarInclinadaDerecha($coord, $jugador, $columna) || self::comprobarInclinadaIzquierda($coord, $jugador, $columna)) {
             return true;
         }
@@ -185,6 +187,7 @@ class Board
                 return true;
             }
         }
-        throw new FichaFueraDeRango("Has intentado introducir una ficha en una columna llena", 1);
+
+        return false;
     }
 }

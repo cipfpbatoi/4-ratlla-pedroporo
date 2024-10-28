@@ -1,3 +1,12 @@
+body {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 120px;
+}
 table {
   border-collapse: collapse;
 }
@@ -29,4 +38,37 @@ table {
 .buid {
   background-color: white; /* Color blanc per cercles buits */
   border-color: #000; /* Puntes negres per millor visibilitat */
+}
+
+/*Css robado*/
+input[type="submit"] {
+  --c: #229091; /* the color*/
+
+  box-shadow: 0 0 0 0.1em inset var(--c);
+  --_g: linear-gradient(var(--c) 0 0) no-repeat;
+  background: var(--_g) calc(var(--_p, 0%) - 100%) 0%,
+    var(--_g) calc(200% - var(--_p, 0%)) 0%,
+    var(--_g) calc(var(--_p, 0%) - 100%) 100%,
+    var(--_g) calc(200% - var(--_p, 0%)) 100%;
+  background-size: 50.5% calc(var(--_p, 0%) / 2 + 0.5%);
+  outline-offset: 0.1em;
+  transition: background-size 0.4s, background-position 0s 0.4s;
+}
+input[type="submit"]:hover {
+  --_p: 100%;
+  transition: background-position 0.4s, background-size 0s;
+}
+input[type="submit"]:active {
+  box-shadow: 0 0 9e9Q inset #0009;
+  background-color: var(--c);
+  color: #fff;
+}
+
+input[type="submit"] {
+  font-family: system-ui, sans-serif;
+  font-size: 3.5rem;
+  cursor: pointer;
+  padding: 0.1em 0.6em;
+  font-weight: bold;
+  border: none;
 }
