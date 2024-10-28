@@ -31,6 +31,12 @@ class GameController
         $this->play($request);
     }
 
+    /**
+     * Esta funcion
+     *
+     * @param array $request
+     * 
+     */
     public function play(array $request)
     {
         $log = new Logger("GameLogger");

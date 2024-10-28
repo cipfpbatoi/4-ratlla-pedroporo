@@ -6,9 +6,25 @@ use Joc4enRatlla\Excemptions\FichaFueraDeRango;
 
 class Board
 {
+    /**
+     * El numnero de filas que va a tener
+     * @var int
+     */
     public const FILES = 6;
+    /**
+     * El numero de columnas que se va a tener
+     * @var int
+     */
     public const COLUMNS = 7;
+    /**
+     * Parametro que inicia cual es la casilla vacia
+     * @var string
+     */
     public const CASILLAVACIA = 'buid';
+    /**
+     * El numero de fichas seguidas para poder ganar
+     * @var int
+     */
     public const NUMFICHASGANAR = 4;
     public const DIRECTIONS = [
         [0, 1],   // Horizontal derecha
@@ -16,9 +32,14 @@ class Board
         [1, 1],   // Diagonal abajo-derecha
         [1, -1]   // Diagonal abajo-izquierda
     ];
-
+    /**
+     * Variable del array del juego
+     * @var array
+     */
     private array $slots;
-
+    /**
+     * inicializa la pantalla
+     */
     public function __construct()
     {
 
@@ -30,11 +51,20 @@ class Board
     {
         return $this->slots;
     }
+    /**
+     * Permite remplazar la pantalla con los valores seleccionados 
+     * @param array $slots
+     * @return void
+     */
     public function setSlots(array $slots): void
     {
         $this->slots = $slots;
     }
-    //Inicialitza la graella amb valors buits
+    /**
+     * Inicia la pantalla con valores vacios
+     *
+     * @return array
+     */
     private static function initializeBoard(): array
     {
         $filas = self::FILES;
@@ -49,7 +79,13 @@ class Board
         }
         return $array;
     }
-    //Realitza un moviment en la graella
+    /**
+     * Realiza un movimiento en la pantalla y la retorna
+     *
+     * @param integer $column
+     * @param integer $player
+     * @return array
+     */
     public function setMovementOnBoard(int $column, int $player): array
     {
         if ($this->isValidMove($column)) {
@@ -62,7 +98,14 @@ class Board
         }
         return $this->slots;
     }
-    //Comprova si hi ha un guanyador
+    /**
+     * Comprueba si hay un ganador
+     *
+     * @param array $coord
+     * @param integer $player
+     * @param integer $columna
+     * @return boolean
+     */
     public function checkWin(array $coord, int $player, int $columna): bool
     {
         $jugador = "player$player";
@@ -71,6 +114,13 @@ class Board
         }
         return false;
     }
+    /**
+     * Recibe la pantalla actual, el jugador que a realizado el ultimo movimiento y la columna en la que ha hecho ese ultimo movimiento de forma que este inclinada hacia la izquierda
+     * @param mixed $pantalla
+     * @param mixed $jugador
+     * @param mixed $columna
+     * @return bool
+     */
     private function comprobarInclinadaIzquierda($pantalla, $jugador, $columna)
     {
         $fichasSeguidas = 1;
@@ -92,6 +142,13 @@ class Board
         }
         return self::checkNumFichas($fichasSeguidas);
     }
+    /**
+     * Recibe la pantalla actual, el jugador que a realizado el ultimo movimiento y la columna en la que ha hecho ese ultimo movimiento de forma que este inclinada hacia la derecha
+     * @param mixed $pantalla
+     * @param mixed $jugador
+     * @param mixed $columna
+     * @return bool
+     */
     private function comprobarInclinadaDerecha($pantalla, $jugador, $columna)
     {
         $fichasSeguidas = 1;
@@ -114,6 +171,13 @@ class Board
         }
         return self::checkNumFichas($fichasSeguidas);
     }
+    /**
+     * Recibe la pantalla actual, el jugador que a realizado el ultimo movimiento y la columna en la que ha hecho ese ultimo movimiento de forma vertical
+     * @param mixed $pantalla
+     * @param mixed $jugador
+     * @param mixed $columna
+     * @return bool
+     */
     private function comprobarVertical($pantalla, $jugador, $columna)
     {
         $fichasSeguidas = 0;
@@ -132,6 +196,13 @@ class Board
 
         return false;
     }
+    /**
+     * Recibe la pantalla actual, el jugador que a realizado el ultimo movimiento y la columna en la que ha hecho ese ultimo movimiento de forma horizontal
+     * @param mixed $pantalla
+     * @param mixed $jugador
+     * @param mixed $columna
+     * @return bool
+     */
     private function comprobarHorizontal($pantalla, $jugador, $columna)
     {
         $ultimaFila = self::comprobarUltimaFilaDeColumna($pantalla, $columna);
@@ -153,6 +224,12 @@ class Board
         }
         return self::checkNumFichas($fichasSeguidas);
     }
+    /**
+     * Retorna la ultima posicion disponible vacia de una columna
+     * @param mixed $pantalla
+     * @param mixed $columna
+     * @return int
+     */
     private function comprobarUltimaFilaDeColumna($pantalla, $columna)
     {
         for ($i = count($pantalla); $i >= 1; $i--) {
@@ -162,15 +239,25 @@ class Board
         }
         return 1;
     }
+    /**
+     * Comprueba que el numero de fichas seguidas es mayor o igual al numero de fichas necesarias para ganar
+     * @param mixed self::NUMFICHASGANAR
+     * @param mixed $fichas
+     * @return bool
+     */
     private function checkNumFichas($fichas)
     {
-        if ($fichas === self::NUMFICHASGANAR) {
+        if ($fichas >= self::NUMFICHASGANAR) {
             return true;
         } else {
             return false;
         }
     }
-    //Comprova si hi ha empate
+    /**
+     * Comprova si hi ha empate
+     *
+     * @return boolean
+     */
     public function isFull(): bool
     {
         if (in_array(self::CASILLAVACIA, $this->slots[1])) {
@@ -179,7 +266,12 @@ class Board
             return true;
         }
     }
-    //Comprova si el moviment és vàlid
+    /**
+     * Comprova si el moviment és vàlid
+     *
+     * @param integer $column
+     * @return boolean
+     */
     public function isValidMove(int $column): bool
     {
         for ($i = count($this->slots); $i >= 1; $i--) {
