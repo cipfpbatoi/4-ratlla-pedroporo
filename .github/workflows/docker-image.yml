@@ -19,4 +19,4 @@ jobs:
     - name: Run composer
       run: docker container exec php1 composer update
     - name: Run test
-      run: docker container exec php1 ./vendor/bin/phpunit run
+      run: docker container exec php1 ./vendor/bin/phpunit
