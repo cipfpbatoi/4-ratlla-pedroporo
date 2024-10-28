@@ -2,6 +2,7 @@
 
 namespace Joc4enRatlla\Models;
 
+use Joc4enRatlla\Excemptions\FichaFueraDeRango;
 use Joc4enRatlla\Models\Board;
 use Joc4enRatlla\Models\Player;
 
@@ -76,6 +77,9 @@ class Game
     //Realitza un moviment
     public function play($columna)
     {
+        if (!$this->board->isValidMove($columna)) {
+            throw new FichaFueraDeRango("Estas lanzando una ficha en una columna llena");
+        }
         $this->board->setMovementOnBoard($columna, $this->getCurrPlayerNum());
         if ($this->board->checkWin($this->board->getSlots(), $this->getCurrPlayerNum(), $columna)) {
             $this->setWinner($this->getCurrPlayer());
