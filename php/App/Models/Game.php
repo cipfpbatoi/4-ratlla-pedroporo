@@ -5,10 +5,21 @@ namespace Joc4enRatlla\Models;
 use Joc4enRatlla\Excemptions\FichaFueraDeRango;
 use Joc4enRatlla\Models\Board;
 use Joc4enRatlla\Models\Player;
+/**
+ * Esta clase manega todo lo que ocurre en el juego
+ */
 
 class Game
 {
+    /**
+     * Se declara un tablero
+     * @var Board
+     */
     private Board $board;
+    /**
+     * Summary of nextPlayer
+     * @var int
+     */
     private int $nextPlayer;
     private array $players;
     private ?Player $winner;

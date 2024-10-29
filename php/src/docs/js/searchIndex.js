@@ -43,7 +43,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\Joc4enRatlla\\Models\\Board\u003A\u003A__construct\u0028\u0029",
             "name": "__construct",
-            "summary": "",
+            "summary": "inicializa\u0020la\u0020pantalla",
             "url": "classes/Joc4enRatlla-Models-Board.html#method___construct"
         },                {
             "fqsen": "\\Joc4enRatlla\\Models\\Board\u003A\u003AgetSlots\u0028\u0029",
@@ -53,82 +53,82 @@ Search.appendIndex(
         },                {
             "fqsen": "\\Joc4enRatlla\\Models\\Board\u003A\u003AsetSlots\u0028\u0029",
             "name": "setSlots",
-            "summary": "",
+            "summary": "Permite\u0020remplazar\u0020la\u0020pantalla\u0020con\u0020los\u0020valores\u0020seleccionados",
             "url": "classes/Joc4enRatlla-Models-Board.html#method_setSlots"
         },                {
             "fqsen": "\\Joc4enRatlla\\Models\\Board\u003A\u003AinitializeBoard\u0028\u0029",
             "name": "initializeBoard",
-            "summary": "",
+            "summary": "Inicia\u0020la\u0020pantalla\u0020con\u0020valores\u0020vacios",
             "url": "classes/Joc4enRatlla-Models-Board.html#method_initializeBoard"
         },                {
             "fqsen": "\\Joc4enRatlla\\Models\\Board\u003A\u003AsetMovementOnBoard\u0028\u0029",
             "name": "setMovementOnBoard",
-            "summary": "",
+            "summary": "Realiza\u0020un\u0020movimiento\u0020en\u0020la\u0020pantalla\u0020y\u0020la\u0020retorna",
             "url": "classes/Joc4enRatlla-Models-Board.html#method_setMovementOnBoard"
         },                {
             "fqsen": "\\Joc4enRatlla\\Models\\Board\u003A\u003AcheckWin\u0028\u0029",
             "name": "checkWin",
-            "summary": "",
+            "summary": "Comprueba\u0020si\u0020hay\u0020un\u0020ganador",
             "url": "classes/Joc4enRatlla-Models-Board.html#method_checkWin"
         },                {
             "fqsen": "\\Joc4enRatlla\\Models\\Board\u003A\u003AcomprobarInclinadaIzquierda\u0028\u0029",
             "name": "comprobarInclinadaIzquierda",
-            "summary": "",
+            "summary": "Recibe\u0020la\u0020pantalla\u0020actual,\u0020el\u0020jugador\u0020que\u0020a\u0020realizado\u0020el\u0020ultimo\u0020movimiento\u0020y\u0020la\u0020columna\u0020en\u0020la\u0020que\u0020ha\u0020hecho\u0020ese\u0020ultimo\u0020movimiento\u0020de\u0020forma\u0020que\u0020este\u0020inclinada\u0020hacia\u0020la\u0020izquierda",
             "url": "classes/Joc4enRatlla-Models-Board.html#method_comprobarInclinadaIzquierda"
         },                {
             "fqsen": "\\Joc4enRatlla\\Models\\Board\u003A\u003AcomprobarInclinadaDerecha\u0028\u0029",
             "name": "comprobarInclinadaDerecha",
-            "summary": "",
+            "summary": "Recibe\u0020la\u0020pantalla\u0020actual,\u0020el\u0020jugador\u0020que\u0020a\u0020realizado\u0020el\u0020ultimo\u0020movimiento\u0020y\u0020la\u0020columna\u0020en\u0020la\u0020que\u0020ha\u0020hecho\u0020ese\u0020ultimo\u0020movimiento\u0020de\u0020forma\u0020que\u0020este\u0020inclinada\u0020hacia\u0020la\u0020derecha",
             "url": "classes/Joc4enRatlla-Models-Board.html#method_comprobarInclinadaDerecha"
         },                {
             "fqsen": "\\Joc4enRatlla\\Models\\Board\u003A\u003AcomprobarVertical\u0028\u0029",
             "name": "comprobarVertical",
-            "summary": "",
+            "summary": "Recibe\u0020la\u0020pantalla\u0020actual,\u0020el\u0020jugador\u0020que\u0020a\u0020realizado\u0020el\u0020ultimo\u0020movimiento\u0020y\u0020la\u0020columna\u0020en\u0020la\u0020que\u0020ha\u0020hecho\u0020ese\u0020ultimo\u0020movimiento\u0020de\u0020forma\u0020vertical",
             "url": "classes/Joc4enRatlla-Models-Board.html#method_comprobarVertical"
         },                {
             "fqsen": "\\Joc4enRatlla\\Models\\Board\u003A\u003AcomprobarHorizontal\u0028\u0029",
             "name": "comprobarHorizontal",
-            "summary": "",
+            "summary": "Recibe\u0020la\u0020pantalla\u0020actual,\u0020el\u0020jugador\u0020que\u0020a\u0020realizado\u0020el\u0020ultimo\u0020movimiento\u0020y\u0020la\u0020columna\u0020en\u0020la\u0020que\u0020ha\u0020hecho\u0020ese\u0020ultimo\u0020movimiento\u0020de\u0020forma\u0020horizontal",
             "url": "classes/Joc4enRatlla-Models-Board.html#method_comprobarHorizontal"
         },                {
             "fqsen": "\\Joc4enRatlla\\Models\\Board\u003A\u003AcomprobarUltimaFilaDeColumna\u0028\u0029",
             "name": "comprobarUltimaFilaDeColumna",
-            "summary": "",
+            "summary": "Retorna\u0020la\u0020ultima\u0020posicion\u0020disponible\u0020vacia\u0020de\u0020una\u0020columna",
             "url": "classes/Joc4enRatlla-Models-Board.html#method_comprobarUltimaFilaDeColumna"
         },                {
             "fqsen": "\\Joc4enRatlla\\Models\\Board\u003A\u003AcheckNumFichas\u0028\u0029",
             "name": "checkNumFichas",
-            "summary": "",
+            "summary": "Comprueba\u0020que\u0020el\u0020numero\u0020de\u0020fichas\u0020seguidas\u0020es\u0020mayor\u0020o\u0020igual\u0020al\u0020numero\u0020de\u0020fichas\u0020necesarias\u0020para\u0020ganar",
             "url": "classes/Joc4enRatlla-Models-Board.html#method_checkNumFichas"
         },                {
             "fqsen": "\\Joc4enRatlla\\Models\\Board\u003A\u003AisFull\u0028\u0029",
             "name": "isFull",
-            "summary": "",
+            "summary": "Comprova\u0020si\u0020hi\u0020ha\u0020empate",
             "url": "classes/Joc4enRatlla-Models-Board.html#method_isFull"
         },                {
             "fqsen": "\\Joc4enRatlla\\Models\\Board\u003A\u003AisValidMove\u0028\u0029",
             "name": "isValidMove",
-            "summary": "",
+            "summary": "Comprova\u0020si\u0020el\u0020moviment\u0020\u00E9s\u0020v\u00E0lid",
             "url": "classes/Joc4enRatlla-Models-Board.html#method_isValidMove"
         },                {
             "fqsen": "\\Joc4enRatlla\\Models\\Board\u003A\u003AFILES",
             "name": "FILES",
-            "summary": "",
+            "summary": "El\u0020numnero\u0020de\u0020filas\u0020que\u0020va\u0020a\u0020tener",
             "url": "classes/Joc4enRatlla-Models-Board.html#constant_FILES"
         },                {
             "fqsen": "\\Joc4enRatlla\\Models\\Board\u003A\u003ACOLUMNS",
             "name": "COLUMNS",
-            "summary": "",
+            "summary": "El\u0020numero\u0020de\u0020columnas\u0020que\u0020se\u0020va\u0020a\u0020tener",
             "url": "classes/Joc4enRatlla-Models-Board.html#constant_COLUMNS"
         },                {
             "fqsen": "\\Joc4enRatlla\\Models\\Board\u003A\u003ACASILLAVACIA",
             "name": "CASILLAVACIA",
-            "summary": "",
+            "summary": "Parametro\u0020que\u0020inicia\u0020cual\u0020es\u0020la\u0020casilla\u0020vacia",
             "url": "classes/Joc4enRatlla-Models-Board.html#constant_CASILLAVACIA"
         },                {
             "fqsen": "\\Joc4enRatlla\\Models\\Board\u003A\u003ANUMFICHASGANAR",
             "name": "NUMFICHASGANAR",
-            "summary": "",
+            "summary": "El\u0020numero\u0020de\u0020fichas\u0020seguidas\u0020para\u0020poder\u0020ganar",
             "url": "classes/Joc4enRatlla-Models-Board.html#constant_NUMFICHASGANAR"
         },                {
             "fqsen": "\\Joc4enRatlla\\Models\\Board\u003A\u003ADIRECTIONS",
@@ -138,7 +138,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\Joc4enRatlla\\Models\\Board\u003A\u003A\u0024slots",
             "name": "slots",
-            "summary": "",
+            "summary": "Variable\u0020del\u0020array\u0020del\u0020juego",
             "url": "classes/Joc4enRatlla-Models-Board.html#property_slots"
         },                {
             "fqsen": "\\Joc4enRatlla\\Models\\Game",
