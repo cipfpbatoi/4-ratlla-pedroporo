@@ -2,3 +2,4 @@
 /.idea
 /git tests/_output
 /.phpdoc
+/.vscode

@@ -2,9 +2,12 @@
 
 namespace Joc4enRatlla\Models;
 
-use Joc4enRatlla\Excemptions\FichaFueraDeRango;
+use Joc4enRatlla\Exceptions\FichaFueraDeRango;
 use Joc4enRatlla\Models\Board;
 use Joc4enRatlla\Models\Player;
+use PDO;
+use Joc4enRatlla\DB\Conexion;
+
 /**
  * Esta clase manega todo lo que ocurre en el juego
  */
@@ -17,19 +20,24 @@ class Game
      */
     private Board $board;
     /**
-     * Summary of nextPlayer
+     * El numero del siguiente jugador, esto va alternando de 1 a 2
      * @var int
      */
     private int $nextPlayer;
+
     private array $players;
     private ?Player $winner;
     private array $scores = [1 => 0, 2 => 0];
+    private Conexion $conexion;
+    private $tablaUsuaris = "usuaris";
+    private $tablaPartidas = "partides";
 
     public function __construct(Player $jugador1, Player $jugador2)
     {
         $this->players = [1 => $jugador1, 2 => $jugador2];
         $this->board = new Board();
         $this->nextPlayer = 2;
+        $this->conexion = new Conexion();
     }
 
     // getters i setters
@@ -143,6 +151,27 @@ class Game
     //Guarda l'estat del joc a les sessions
     public function save()
     {
+        $userLogged = $_COOKIE['nom_usuari'] ?? $_SESSION['nom_usuari'];
+        $userId = $this->getUser($userLogged)->id;
+
+        $sql = "SELECT * FROM $this->tablaPartidas WHERE usuari_id=:userId";
+        $sentencia = $this->conexion->pdo->prepare($sql);
+        $sentencia->bindParam(':userId', $userId);
+        $sentencia->setFetchMode(PDO::FETCH_OBJ);
+        $sentencia->execute();
+        $partida = $sentencia->fetch();
+        if (!$partida) {
+            $sql = "INSERT INTO $this->tablaPartidas (usuari_id, game) VALUES (
+                    :userId,
+                    :game
+                )";
+            //$game=serialize($this);
+            $sentencia = $this->conexion->pdo->prepare($sql);
+            $sentencia->bindParam(':userId', $userId);
+            $sentencia->bindParam(':game', $this);
+            $sentencia->execute();
+        }
+
         $_SESSION['game'] = serialize($this);
     }
     //Restaura l'estat del joc de les sessions
@@ -150,5 +179,14 @@ class Game
     {
 
         return unserialize($_SESSION['game']);
+    }
+    private function getUser(string $nombre)
+    {
+        $sql = "SELECT * FROM $this->tablaUsuaris WHERE nom_usuari=:name";
+        $sentencia = $this->conexion->pdo->prepare($sql);
+        $sentencia->bindParam(':name', $nombre);
+        $sentencia->setFetchMode(PDO::FETCH_OBJ);
+        $sentencia->execute();
+        return $sentencia->fetch();
     }
 }

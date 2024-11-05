@@ -4,7 +4,7 @@ namespace Joc4enRatlla\Exceptions;
 
 use Exception;
 
-class FichaFueraDeRango extends Exception
+class UserNotFound extends Exception
 {
     public function __construct($msj, $codigo = 0, Exception $previa = null)
     {
