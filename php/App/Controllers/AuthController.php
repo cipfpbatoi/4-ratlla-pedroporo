@@ -31,10 +31,10 @@ class AuthController
             $user = $this->getUser($nombre);
         }
         if (isset($user) && password_verify($password, $user->contrasenya)) {
-            if (!isset($_COOKIE['nom_usuari']) && $remember) {
-                setcookie("nom_usuari", $nombre);
+            if (!isset($_COOKIE['id_usuari']) && $remember) {
+                setcookie("id_usuari", $user->id);
             }
-            $_SESSION['nom_usuari'] = $nombre;
+            $_SESSION['id_usuari'] = $user->id;
             header("Location: /");
         } else {
             echo "Invalid password.";

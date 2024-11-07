@@ -7,7 +7,7 @@ use Joc4enRatlla\Controllers\GameController;
 use Joc4enRatlla\Controllers\AuthController;
 
 $auth = new AuthController();
-$userLogged = $_COOKIE['nom_usuari'] ?? $_SESSION['nom_usuari'] ?? null;
+$userLogged = $_COOKIE['id_usuari'] ?? $_SESSION['id_usuari'] ?? null;
 
 if (!$userLogged) {
      include_once $_SERVER['DOCUMENT_ROOT'] . '/../Views/login.view.php';

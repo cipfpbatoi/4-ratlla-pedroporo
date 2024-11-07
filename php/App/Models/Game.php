@@ -5,8 +5,6 @@ namespace Joc4enRatlla\Models;
 use Joc4enRatlla\Exceptions\FichaFueraDeRango;
 use Joc4enRatlla\Models\Board;
 use Joc4enRatlla\Models\Player;
-use PDO;
-use Joc4enRatlla\DB\Conexion;
 
 /**
  * Esta clase manega todo lo que ocurre en el juego
@@ -28,7 +26,7 @@ class Game
     private array $players;
     private ?Player $winner;
     private array $scores = [1 => 0, 2 => 0];
-    private Conexion $conexion;
+
     private $tablaUsuaris = "usuaris";
     private $tablaPartidas = "partides";
 
@@ -37,7 +35,6 @@ class Game
         $this->players = [1 => $jugador1, 2 => $jugador2];
         $this->board = new Board();
         $this->nextPlayer = 2;
-        $this->conexion = new Conexion();
     }
 
     // getters i setters
@@ -148,45 +145,31 @@ class Game
         $inthemiddle = $possibles[$middle];
         $this->play($inthemiddle);
     }
+
     //Guarda l'estat del joc a les sessions
     public function save()
     {
-        $userLogged = $_COOKIE['nom_usuari'] ?? $_SESSION['nom_usuari'];
-        $userId = $this->getUser($userLogged)->id;
-
-        $sql = "SELECT * FROM $this->tablaPartidas WHERE usuari_id=:userId";
-        $sentencia = $this->conexion->pdo->prepare($sql);
-        $sentencia->bindParam(':userId', $userId);
-        $sentencia->setFetchMode(PDO::FETCH_OBJ);
-        $sentencia->execute();
-        $partida = $sentencia->fetch();
-        if (!$partida) {
-            $sql = "INSERT INTO $this->tablaPartidas (usuari_id, game) VALUES (
-                    :userId,
-                    :game
-                )";
-            //$game=serialize($this);
-            $sentencia = $this->conexion->pdo->prepare($sql);
-            $sentencia->bindParam(':userId', $userId);
-            $sentencia->bindParam(':game', $this);
-            $sentencia->execute();
-        }
-
         $_SESSION['game'] = serialize($this);
     }
     //Restaura l'estat del joc de les sessions
     public static function restore()
     {
-
         return unserialize($_SESSION['game']);
     }
-    private function getUser(string $nombre)
-    {
-        $sql = "SELECT * FROM $this->tablaUsuaris WHERE nom_usuari=:name";
-        $sentencia = $this->conexion->pdo->prepare($sql);
-        $sentencia->bindParam(':name', $nombre);
-        $sentencia->setFetchMode(PDO::FETCH_OBJ);
+    public function saveDB($conexion){
+        $userId = $_COOKIE['id_usuari'] ?? $_SESSION['id_usuari'];
+        $sql = "INSERT INTO $this->tablaPartidas (usuari_id, game) VALUES (
+                    :userId,
+                    :game
+                ) ON DUPLICATE KEY UPDATE game=:game";
+        $game = serialize($this);
+        $sentencia = $conexion->pdo->prepare($sql);
+        $sentencia->bindParam(':userId', $userId);
+        $sentencia->bindParam(':game', $game);
         $sentencia->execute();
-        return $sentencia->fetch();
+    }
+    public static function restoreDB($partida)
+    {
+        return unserialize($partida);
     }
 }

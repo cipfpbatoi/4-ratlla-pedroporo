@@ -12,13 +12,16 @@ use Monolog\Formatter\JsonFormatter;
 use Joc4enRatlla\Exceptions\FichaFueraDeRango;
 use PDO;
 use Joc4enRatlla\DB\Conexion;
+
 class GameController
 {
     private Game $game;
+    private Conexion $conexion;
 
     // Request és l'array $_POST
     public function __construct($request = null)
     {
+        $this->conexion = new Conexion();
         //Inicialització del joc
         if (!isset($_SESSION["game"])) {
             $player1 = new Player($request["name"], $request["color"], false, $request["secret"] ?? false);
@@ -26,9 +29,10 @@ class GameController
             $this->game = new Game($player1, $player2);
             $this->game->save();
         } else {
+            
             $this->game = Game::restore();
         }
-        dd($request,$_SESSION);
+        //dd($request,$_SESSION);
         $this->play($request);
     }
 
@@ -40,7 +44,7 @@ class GameController
      */
     public function play(array $request)
     {
-       
+
         $log = new Logger("GameLogger");
         $rfh = new RotatingFileHandler("../logs/game.log", Logger::DEBUG);
         $rfh->setFormatter(new JsonFormatter());
@@ -75,14 +79,16 @@ class GameController
              * Gestor de accion para guardar el estado actual de la partida en la base de datos
              */
             if (isset($request["save"])) {
-                $this->game->save();
+                $this->game->saveDB($this->conexion);
             }
             /**
              * Gestor de accion para cargar el estado actual de la partida de la base de datos
              */
             if (isset($request["load"])) {
+                $reqGame=$this->getPartida();
+                $this->game=Game::restoreDB($reqGame);
             }
-            
+
             /**
              * Accion del bot automatico
              * todo: El profe ha dicho que no se hace
@@ -93,7 +99,7 @@ class GameController
         } catch (FichaFueraDeRango $e) {
             $errors[] = $e;
         } finally {
-            //$this->game->save();
+            $this->game->save();
             $board = $this->game->getBoard();
             $players = $this->game->getPlayers();
             $winner = $this->game->getWinner();
@@ -104,5 +110,18 @@ class GameController
 
             loadView('index', compact('board', 'players', 'winner', 'scores', 'errors'));
         }
+    }
+
+    private function getPartida()
+    {
+        $userId = $_COOKIE['id_usuari'] ?? $_SESSION['id_usuari'];
+        $sql = "SELECT * FROM partides WHERE usuari_id=:userId";
+        $sentencia = $this->conexion->pdo->prepare($sql);
+        $sentencia->bindParam(':userId', $userId);
+        $sentencia->setFetchMode(PDO::FETCH_OBJ );
+        $sentencia->execute();
+        
+    
+        return $sentencia->fetch()->game;
     }
 }
